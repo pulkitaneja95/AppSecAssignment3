@@ -1,0 +1,12 @@
+{% block content %}
+    <h3>File uploaded successfully</h3>
+    <img src = {{file_url}} >
+<script>
+window.onload = function() {
+  setTimeout(
+    function() {
+      window.location='get_image';
+    }, 10000);
+}
+</script>
+{% endblock %}

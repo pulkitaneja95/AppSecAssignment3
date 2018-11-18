@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+Welcome {{ name }}
+<form method='POST' action='upload_image' enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type='file' name="image">
+    <button type='submit'>Submit</button>
+  </form>
+<br><a href="logout">Logout</a>
+</body>
+</html>

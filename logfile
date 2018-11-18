@@ -1,0 +1,13 @@
+(0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+(0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2018-11-18 18:00:18.772218' AND "django_session"."session_key" = '35wzrr36soplqpnt6s6ziotjvk567f22'); args=('2018-11-18 18:00:18.772218', '35wzrr36soplqpnt6s6ziotjvk567f22')
+(0.000) BEGIN; args=None
+(0.001) UPDATE "django_session" SET "session_data" = 'YjYxOTNjZGQwMGY1YTk2NmI0YzBhMmM1YTA3NmM4Njg3Yzg1ODIxZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzZkMGU3NmJiYTM3Yzc0NGFkZjA2NDEzM2Y0NDgxZGYyYjUzM2Q3IiwiTG9nZ2VkIEluIjpmYWxzZX0=', "expire_date" = '2018-12-02 18:00:18.780944' WHERE "django_session"."session_key" = '35wzrr36soplqpnt6s6ziotjvk567f22'; args=('YjYxOTNjZGQwMGY1YTk2NmI0YzBhMmM1YTA3NmM4Njg3Yzg1ODIxZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzZkMGU3NmJiYTM3Yzc0NGFkZjA2NDEzM2Y0NDgxZGYyYjUzM2Q3IiwiTG9nZ2VkIEluIjpmYWxzZX0=', '2018-12-02 18:00:18.780944', '35wzrr36soplqpnt6s6ziotjvk567f22')
+"GET /accounts/ HTTP/1.1" 200 555
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2018-11-18 18:00:26.576522' AND "django_session"."session_key" = '35wzrr36soplqpnt6s6ziotjvk567f22'); args=('2018-11-18 18:00:26.576522', '35wzrr36soplqpnt6s6ziotjvk567f22')
+(0.000) BEGIN; args=None
+(0.000) UPDATE "django_session" SET "session_data" = 'OGY1MjQyMmFlZmZiMjM2MWM3NTQxNTliMzRjZDFjM2QwMTdjODY0Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzZkMGU3NmJiYTM3Yzc0NGFkZjA2NDEzM2Y0NDgxZGYyYjUzM2Q3IiwiTG9nZ2VkIEluIjp0cnVlfQ==', "expire_date" = '2018-12-02 18:00:26.580206' WHERE "django_session"."session_key" = '35wzrr36soplqpnt6s6ziotjvk567f22'; args=('OGY1MjQyMmFlZmZiMjM2MWM3NTQxNTliMzRjZDFjM2QwMTdjODY0Yjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhNzZkMGU3NmJiYTM3Yzc0NGFkZjA2NDEzM2Y0NDgxZGYyYjUzM2Q3IiwiTG9nZ2VkIEluIjp0cnVlfQ==', '2018-12-02 18:00:26.580206', '35wzrr36soplqpnt6s6ziotjvk567f22')
+"POST /accounts/main_menu HTTP/1.1" 200 452
