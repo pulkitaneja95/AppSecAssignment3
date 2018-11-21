@@ -6,13 +6,20 @@
     <hr>
   </header>
 <body>
+{{ message }}
   <form method='POST' action='register'>
     {% csrf_token %}
     <input name='username' type='text' class='form-control' placeholder='Username' required>
+      <br><br>
       <input type="email" type="email" name="email" placeholder="email">
+      <br><br>
     <input name='password' type='password' class='form-control' placeholder='Password' required>
+      <br><br>
       <input name='confirm password' type='password' class='form-control' placeholder='Confirm Password' required>
+      <br><br>
     <button type='submit'>Submit</button>
   </form>
+<a href="/accounts">Login</a>
 </body>
+
 </html>

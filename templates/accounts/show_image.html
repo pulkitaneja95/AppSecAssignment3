@@ -1,5 +1,11 @@
+<!doctype html>
+<a href="welcome">Back</a>
 {% block content %}
     <h3>File uploaded successfully</h3>
-    <img src = {{file_url}} >
+    {% autoescape off %}
+    {{html}}
+    {% endautoescape %}
+
 
 {% endblock %}
+</html>

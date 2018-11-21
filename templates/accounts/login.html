@@ -11,8 +11,8 @@
 
   <form method='POST' action='main_menu'>
     {% csrf_token %}
-    <input name='username' type='text' class='form-control' placeholder='Username' required>
-    <input name='password' type='password' class='form-control' placeholder='Password' required>
+    <input name='useremail' type='email' class='form-control' placeholder='UserEmail' required><br><br>
+    <input name='password' type='password' class='form-control' placeholder='Password' required><br><br>
     <button type='submit'>Submit</button>
   </form>
     <a href="signup">Signup</a>

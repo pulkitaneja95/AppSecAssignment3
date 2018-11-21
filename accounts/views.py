@@ -8,6 +8,7 @@ from django.core.files.storage import default_storage
 from PIL import Image
 
 import sys
+import hashlib
 
 
 
@@ -35,11 +36,19 @@ logger = logging.getLogger(__name__)
 
 FILE_UPLOAD_DIR = '/media'
 
-connection = psycopg2.connect(host='myappsecdb.cmaw4hesijia.us-east-1.rds.amazonaws.com', database='postgres',
-                                      user='myAppSecDb', password='myAppSecDb')
+connection = psycopg2.connect(host='myappsecdb.cmaw4hesijia.us-east-1.rds.amazonaws.com', database='postgres', user='myAppSecDb', password='myAppSecDb')
 
 # Create your views here.
 def login(request):
+    if 'Logged In' in request.session and request.session['Logged In'] == True:
+        return render(
+            request,
+            'accounts/welcome.html',
+            {
+                "message": " ",
+            }
+        )
+
     request.session['Logged In'] = False
         # return render(
         #     request,
@@ -59,6 +68,9 @@ def login(request):
 
 def logout(request):
     request.session['Logged In'] = False
+    del request.session['user_id']
+    del request.session['user_name']
+
     return render(
         request,
         'accounts/login.html',
@@ -82,10 +94,24 @@ def register(request):
     email = request.POST['email']
     print(username)
     print(password)
-    print(email)
+    passwordhash = hashlib.sha1(password.encode())
+    passwordhash = passwordhash.hexdigest()
+
+    print(passwordhash)
     cursor = connection.cursor()
-    cursor.execute("INSERT into account(username,password,email) values(%s,%s,%s)",(str(username),str(password),str(email),))
-    connection.commit()
+    try :
+        cursor.execute("INSERT into account(username,password,email) values(%s,%s,%s) returning user_id",(str(username),str(passwordhash),str(email),))
+        connection.commit()
+        user_id = cursor.fetchone()
+    except:
+        logging.debug('A user was unable to sign up')
+        return render(
+            request,
+            'accounts/signup.html',
+            {
+                "message": "We already have account with this email id. Try logging in."
+            }
+        )
     logging.debug('A user signed up')
     return render(
         request,
@@ -111,24 +137,30 @@ def main_menu(request):
     # Receives POST from login.html Form
     print(connection)
     if request.method == 'POST':
-        username = request.POST['username']
+        useremail = request.POST['useremail']
         userpass = request.POST['password']
-        print(username)
+        print(useremail)
         print(userpass)
+        userpass = hashlib.sha1(userpass.encode())
+        userpass = userpass.hexdigest()
         cursor = connection.cursor()
         print(cursor)
-        cursor.execute("select user_id from account where username = %s and password = %s", (str(username),str(userpass),))
+        cursor.execute("select user_id, username from account where email = %s and password = %s", (str(useremail),str(userpass),))
         #cursor.execute('select * from account')
-        userid = cursor.fetchone()
-        if userid is not None:
+        data = cursor.fetchone()
+        user_id = data[0]
+        user_name = data[1]
+        if user_name is not None:
             logger.debug('A user Logged In')
             logger.info('A user Logged In')
             request.session['Logged In'] = True
+            request.session['user_name'] = user_name
+            request.session['user_id'] = user_id
             return render(
                 request,
                 'accounts/welcome.html',
                 {
-                    "name" : username
+                    "name" : user_name
                 }
             )
 
@@ -168,10 +200,18 @@ def upload_image(request):
         squared_image.show()
         #filename2 = fs.save("me_rutgers_sq.jpeg", newfile)
         #file_url2 = fs.url(filename2)
-
+        cursor = connection.cursor()
+        cursor.execute("INSERT into imagelog(user_id,image_path) values(%s,%s) ",(str(request.session['user_id']),str(filename),))
+        connection.commit()
         logging.debug('user squariified the image')
+        cursor.execute('select image_path from imagelog where user_id = %s',(str(request.session['user_id']),))
+        image_names = cursor.fetchall()
+        image_names = list(sum(image_names, ()))
+        html = "you have squrified these images--<br>"
+        for name in image_names:
+            html += "<img src=/media/"+str(name)+" height='100' width='100'><br>"
         return render(request, 'accounts/show_image.html', {
-            'file_url': "me_rutgers.jpeg"
+            'html': html
         })
     else:
          return render(request, 'accounts/show_image.html')
