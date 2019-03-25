@@ -36,7 +36,6 @@ logger = logging.getLogger(__name__)
 
 FILE_UPLOAD_DIR = '/media'
 
-connection = psycopg2.connect(host='myappsecdb.cmaw4hesijia.us-east-1.rds.amazonaws.com', database='postgres', user='myAppSecDb', password='myAppSecDb')
 
 # Create your views here.
 def login(request):
